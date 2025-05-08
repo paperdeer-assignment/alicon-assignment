@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { goto, invalidateAll } from '$app/navigation';
+	import { useLogout } from '$lib/hooks/useLogout';
+	import { userStore } from '$lib/store/user';
 	import type { ChattingRoom, ChattingRoomId } from '$lib/types/chat';
 	import type { GetChattingRoomListResponse } from '../../../../routes/api/chat/type';
 	import ChattingRoomItem from './ChattingRoomItem.svelte';
@@ -36,6 +39,8 @@
 		const { rooms }: GetChattingRoomListResponse = await res.json();
 		searchRoomIds = rooms.map((room) => room.id);
 	};
+
+	const { logout } = useLogout();
 </script>
 
 <aside class="sidebar">
@@ -54,6 +59,7 @@
 			</li>
 		{/each}
 	</ul>
+	<button class="logout-button" onclick={logout}> 로그아웃 </button>
 </aside>
 
 <style>
@@ -95,5 +101,11 @@
 	}
 	li.selected {
 		border-left: 4px solid blue;
+	}
+	.logout-button {
+		background-color: transparent;
+		border: none;
+		padding: 16px;
+		cursor: pointer;
 	}
 </style>
