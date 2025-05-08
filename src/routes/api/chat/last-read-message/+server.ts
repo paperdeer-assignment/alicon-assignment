@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export const POST: RequestHandler = async ({ request, cookies }) => {
+export const PUT: RequestHandler = async ({ request, cookies }) => {
 	const body = await request.json();
 	const myId = cookies.get('userId');
 	const { roomId, lastReadMessageId } = body;
