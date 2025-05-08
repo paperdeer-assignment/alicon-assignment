@@ -1,6 +1,7 @@
 import { goto, invalidate } from '$app/navigation';
 import { connectWebSocket } from '$lib/utils/socket';
 import { onMount } from 'svelte';
+import type { CreateChattingRoomResponse } from '../../routes/api/chat/type';
 
 export const useCreateChattingRoom = () => {
 	let ws: WebSocket;
@@ -18,7 +19,7 @@ export const useCreateChattingRoom = () => {
 			})
 		});
 
-		const { roomId, message: createdMessage } = await data.json();
+		const { roomId, message: createdMessage }: CreateChattingRoomResponse = await data.json();
 
 		await invalidate('chatting:room-list');
 		await goto(`/chat/${roomId}`);
