@@ -1,4 +1,5 @@
 import type { ChattingRoomDetail } from '$lib/types/chat';
+import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { PrismaClient } from '@prisma/client';
 
@@ -7,6 +8,8 @@ const prisma = new PrismaClient();
 export const load: PageServerLoad = async ({ params, cookies }) => {
 	const roomId = params.roomId;
 	const userId = cookies.get('userId');
+
+	const myId = Number(userId);
 
 	const chatRoom = await prisma.chattingRoom.findUnique({
 		where: {
@@ -21,6 +24,10 @@ export const load: PageServerLoad = async ({ params, cookies }) => {
 		}
 	});
 
+	if (!chatRoom?.chattingRoomUsers.some((chattingRoomUser) => chattingRoomUser.userId === myId)) {
+		throw redirect(302, '/chat');
+	}
+
 	const chatList = await prisma.message.findMany({
 		where: {
 			roomId: roomId
@@ -29,8 +36,6 @@ export const load: PageServerLoad = async ({ params, cookies }) => {
 			sender: true
 		}
 	});
-
-	const myId = Number(userId);
 
 	const conversationPartner = chatRoom?.chattingRoomUsers.filter((user) => user.userId !== myId)[0]
 		.user;
