@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ChattingRoom, ChattingRoomId } from '$lib/types/chat';
+	import type { GetChattingRoomListResponse } from '../../../../routes/api/chat/type';
 	import ChattingRoomItem from './ChattingRoomItem.svelte';
 
 	let {
@@ -32,7 +33,7 @@
 			method: 'GET'
 		});
 
-		const { rooms }: { rooms: ChattingRoom[] } = await res.json();
+		const { rooms }: GetChattingRoomListResponse = await res.json();
 		searchRoomIds = rooms.map((room) => room.id);
 	};
 </script>
