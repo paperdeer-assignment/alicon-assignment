@@ -1,9 +1,10 @@
 <script lang="ts">
 	import type { User } from '@prisma/client';
+	import type { GetUserListResponse } from '../../../../routes/api/user/type';
 
 	let { onSelectUser }: { onSelectUser: (user: User) => void } = $props();
 
-	let users = $state<User[]>([]);
+	let users = $state<GetUserListResponse>([]);
 
 	const onSubmit = async (event: SubmitEvent) => {
 		event.preventDefault();
@@ -11,7 +12,7 @@
 		const userEmail = (event.target as HTMLFormElement).userEmail.value;
 
 		const res = await fetch('/api/user?email=' + userEmail);
-		const data = await res.json();
+		const data: GetUserListResponse = await res.json();
 
 		users = data;
 	};

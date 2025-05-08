@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { json, type RequestHandler } from '@sveltejs/kit';
+import type { GetChattingRoomListResponse } from './type';
 
 const prisma = new PrismaClient();
 
@@ -81,5 +82,9 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 		}
 	});
 
-	return json({ success: true, rooms });
+	const response: GetChattingRoomListResponse = {
+		rooms
+	};
+
+	return json(response);
 };
