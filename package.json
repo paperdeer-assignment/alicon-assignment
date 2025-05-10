@@ -5,7 +5,8 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "npx prisma generate && vite build && node src/lib/server/websocket.js",
+		"build": "npx prisma generate && vite build",
+		"start:ws": "node src/lib/server/websocket.js",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -17,8 +18,10 @@
 		"@eslint/compat": "^1.2.5",
 		"@eslint/js": "^9.18.0",
 		"@sveltejs/adapter-auto": "^6.0.0",
+		"@sveltejs/adapter-node": "^5.2.12",
 		"@sveltejs/kit": "^2.16.0",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
+		"@types/express": "^5.0.1",
 		"@types/ws": "^8.18.1",
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "^10.0.1",
@@ -35,6 +38,7 @@
 	},
 	"dependencies": {
 		"@prisma/client": "^6.7.0",
+		"express": "^5.1.0",
 		"prisma": "^6.7.0",
 		"ws": "^8.18.2"
 	}

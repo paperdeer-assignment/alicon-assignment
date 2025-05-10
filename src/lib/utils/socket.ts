@@ -5,7 +5,7 @@ const getWebSocketUrl = () => {
 		const host = window.location.host; // 도메인:포트
 
 		if (import.meta.env.DEV) {
-			return 'ws://localhost:8080';
+			return 'ws://localhost:3000';
 		}
 
 		return `${protocol}//${host}`;

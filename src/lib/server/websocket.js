@@ -1,8 +1,16 @@
 import { PrismaClient } from '@prisma/client';
+import { createServer } from 'http';
 import { WebSocketServer } from 'ws';
+import { handler } from '../../../build/handler.js';
+import express from 'express';
 
 const prisma = new PrismaClient();
-const wss = new WebSocketServer({ port: 8080 });
+
+const app = express();
+app.use(handler);
+
+const server = createServer(app);
+const wss = new WebSocketServer({ server });
 
 wss.on('connection', (ws) => {
 	ws.on('message', async (data) => {
@@ -40,4 +48,8 @@ wss.on('connection', (ws) => {
 			});
 		}
 	});
+});
+
+server.listen(3000, () => {
+	console.log('Server is running on port 3000');
 });
