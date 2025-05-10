@@ -11,6 +11,7 @@ app.use(handler);
 
 const server = createServer(app);
 const wss = new WebSocketServer({ server });
+const PORT = process.env.PORT || 3000;
 
 wss.on('connection', (ws) => {
 	ws.on('message', async (data) => {
@@ -50,6 +51,6 @@ wss.on('connection', (ws) => {
 	});
 });
 
-server.listen(3000, () => {
-	console.log('Server is running on port 3000');
+server.listen(PORT, () => {
+	console.log(`Server is running on port ${PORT}`);
 });
