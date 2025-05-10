@@ -3,9 +3,13 @@
 	import InviteUser from '$lib/components/chat/create/InviteUser.svelte';
 	import type { User } from '@prisma/client';
 	import { useCreateChattingRoom } from '$lib/hooks/useCreateChattingRoom';
+	import { useChatWebSocket } from '$lib/hooks/useChatWebSocket';
 
 	let selectedUser = $state<User | null>(null);
 	const { createChattingRoom } = useCreateChattingRoom();
+	useChatWebSocket({
+		roomId: null
+	});
 
 	const onSubmit = async (event: SubmitEvent) => {
 		event.preventDefault();

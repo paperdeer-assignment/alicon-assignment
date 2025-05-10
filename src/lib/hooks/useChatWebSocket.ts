@@ -6,8 +6,8 @@ import { onMount } from 'svelte';
 import { get, writable } from 'svelte/store';
 
 interface UseChatWebSocketProps {
-	roomId: string;
-	updateLocalMessages: (message: Message) => void;
+	roomId: string | null;
+	updateLocalMessages?: (message: Message) => void;
 }
 
 export const useChatWebSocket = ({ roomId, updateLocalMessages }: UseChatWebSocketProps) => {
